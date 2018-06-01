@@ -1,10 +1,12 @@
 package pl.poligro.Actor;
 
-import pl.poligro.Actor.enums.ActorStatus;
-import pl.poligro.Actor.enums.ActorType;
-import pl.poligro.GameObject.GameObject;
+import pl.poligro.Actor.Intefaces.Movable;
+import pl.poligro.Enums.ActorStatus;
+import pl.poligro.Enums.ActorType;
+import pl.poligro.Entity.Entity;
+import pl.poligro.Enums.MoveDirection;
 
-public abstract class Actor implements GameObject {
+public abstract class Actor extends Entity implements Movable {
 
     private ActorStatus status;
     private ActorType type;
@@ -46,6 +48,11 @@ public abstract class Actor implements GameObject {
 
     public void setType(ActorType type) {
         this.type = type;
+    }
+
+    @Override
+    public Boolean move(MoveDirection moveDirection) {
+        return null;
     }
 
     @Override

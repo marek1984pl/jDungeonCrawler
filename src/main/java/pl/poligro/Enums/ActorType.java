@@ -1,4 +1,4 @@
-package pl.poligro.Actor.enums;
+package pl.poligro.Enums;
 
 public enum ActorType {
     PLAYER, MONSTER, NPC

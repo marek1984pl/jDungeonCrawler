@@ -1,6 +1,6 @@
 package pl.poligro.Actor;
 
-import pl.poligro.Actor.enums.ActorType;
+import pl.poligro.Enums.ActorType;
 
 public class Player extends Actor {
 
