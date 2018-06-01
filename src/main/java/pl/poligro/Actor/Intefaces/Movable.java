@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2018 Marek Morawiec
  * User: marek
  * Date: 30.05.2018
@@ -7,7 +7,7 @@
 
 package pl.poligro.Actor.Intefaces;
 
-import pl.poligro.Enums.MoveDirection;
+import pl.poligro.GameEngine.MoveDirection;
 
 public interface Movable {
 

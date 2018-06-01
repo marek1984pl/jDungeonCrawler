@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2018 Marek Morawiec
  * User: marek
  * Date: 30.05.2018
@@ -7,9 +7,35 @@
 
 package pl.poligro.GameEngine;
 
+import java.util.Random;
+
 public class Position {
 
+    private static Random rand = new Random();
+
     private Integer x, y;
+
+    public Position(Integer x, Integer y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static MoveDirection randomDirection() {
+        int newPosition = rand.nextInt(4);
+
+        switch (newPosition) {
+            case 0:
+                return MoveDirection.UP;
+            case 1:
+                return MoveDirection.DOWN;
+            case 2:
+                return MoveDirection.LEFT;
+            case 3:
+                return MoveDirection.RIGHT;
+            default:
+                return null;
+        }
+    }
 
     public Integer getX() {
         return x;

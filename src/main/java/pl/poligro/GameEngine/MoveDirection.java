@@ -5,7 +5,8 @@
  * Time: 20:16
  */
 
-package pl.poligro.Entity;
+package pl.poligro.GameEngine;
 
-public enum EntityType {
+public enum MoveDirection {
+    UP, DOWN, LEFT, RIGHT
 }

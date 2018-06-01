@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright 2018 Marek Morawiec
  * User: marek
  * Date: 31.05.2018
  * Time: 10:21
  */
 
-package pl.poligro.GameEngine;
+package pl.poligro.GraphicsEngine.Assets;
 
 import java.util.HashMap;
 import java.util.Map;
