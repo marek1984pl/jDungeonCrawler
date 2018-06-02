@@ -31,7 +31,8 @@ public class GameState {
         log.info("Initialize game world....");
 
         monsterList = Stream
-                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConsts.WIDTH_TILES), rand.nextInt(GlobalConsts.HEIGHT_TILES))))
+                // todo change new position constructor
+                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConsts.GAME_WIDTH_TILES), rand.nextInt(GlobalConsts.GAME_HEIGHT_TILES))))
                 .limit(20)
                 .collect(Collectors.toList());
 
