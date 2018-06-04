@@ -17,7 +17,7 @@ public interface GlobalConsts {
     int UI_WIDTH = 8;
     int UI_HEIGHT = 0;
 
-    int GAME_WIDTH_TILES = WIDTH_TILES - UI_WIDTH;
-    int GAME_HEIGHT_TILES = HEIGHT_TILES - UI_HEIGHT;
+    int GAME_WIDTH_TILES = WIDTH_TILES - UI_WIDTH - 1;
+    int GAME_HEIGHT_TILES = HEIGHT_TILES - UI_HEIGHT - 1;
 
 }

@@ -10,8 +10,11 @@ package pl.poligro.GraphicsEngine;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Logger;
 
 public class InputHandler implements KeyListener {
+
+    Logger log = Logger.getLogger(getClass().getName());
 
     private boolean[] keys = new boolean[256];
 
@@ -30,6 +33,7 @@ public class InputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() > 0 && e.getKeyCode() < 256) {
             keys[e.getKeyCode()] = true;
+            log.info("Key pressed: " + e.getKeyCode());
         }
     }
 
@@ -37,6 +41,7 @@ public class InputHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() > 0 && e.getKeyCode() < 256) {
             keys[e.getKeyCode()] = false;
+            log.info("Key released: " + e.getKeyCode());
         }
     }
 

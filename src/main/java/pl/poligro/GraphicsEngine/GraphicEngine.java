@@ -83,24 +83,33 @@ public class GraphicEngine extends JFrame {
     }
 
     private void update() {
+
         // 3A) user input - keyboard / mouse
         handleKeyboardInput();
-        // 3B) update - process user input, physics / ai / world / network / ui
-        gameState.updateGameState();
+
+        if (gameState.isChangeTurn()) {
+            // 3B) update - process user input, physics / ai / world / network / ui
+            gameState.updateGameState();
+            gameState.setChangeTurn(false);
+        }
     }
 
     private void handleKeyboardInput() {
         if (inputHandler.isKeyDown(KeyEvent.VK_D)) {
             gameState.movePlayer(MoveDirection.RIGHT);
+            gameState.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_A)) {
             gameState.movePlayer(MoveDirection.LEFT);
+            gameState.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_W)) {
             gameState.movePlayer(MoveDirection.UP);
+            gameState.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_S)) {
             gameState.movePlayer(MoveDirection.DOWN);
+            gameState.nextTurn();
         }
     }
 
@@ -126,14 +135,14 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawInBottomLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+32, 300, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+64, 300, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300+32, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 100, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+48, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+96, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300+48, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
     }
 
     private void drawInMiddleLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("VAMPIRE"), 100, 100, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("VAMPIRE"), 100, 100, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
         bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), 150, 150, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
     }
 

@@ -26,6 +26,9 @@ public class GameState {
     private Player player = new Player("Zodgar");
     private List<Monster> monsterList;
 
+    private Integer turnNumber = 0;
+    private boolean changeTurn = false;
+
     public void initGameWorld() {
 
         log.info("Initialize game world....");
@@ -53,12 +56,27 @@ public class GameState {
 
     private void moveMonsters() {
         for (Monster monster : monsterList) {
-            monster.move(Position.randomDirection());
+            MoveDirection newDirection = Position.randomDirection();
+            if (checkIfNewPositionIsInGameWindow(monster.getPosition(), newDirection)) {
+                monster.move(newDirection);
+            }
         }
     }
 
+    public Integer nextTurn() {
+        changeTurn = true;
+        return ++turnNumber;
+    }
+
     public void movePlayer(MoveDirection direction) {
-        player.move(direction);
+        if (checkIfNewPositionIsInGameWindow(player.getPosition(), direction)) {
+            player.move(direction);
+        }
+    }
+
+    private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
+        Position newPosition = currentPosition.newPosition(direction);
+        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConsts.GAME_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConsts.GAME_HEIGHT_TILES;
     }
 
     public Player getPlayer() {
@@ -75,5 +93,21 @@ public class GameState {
 
     public void setMonsterList(List<Monster> monsterList) {
         this.monsterList = monsterList;
+    }
+
+    public Integer getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void setTurnNumber(Integer turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public boolean isChangeTurn() {
+        return changeTurn;
+    }
+
+    public void setChangeTurn(boolean changeTurn) {
+        this.changeTurn = changeTurn;
     }
 }

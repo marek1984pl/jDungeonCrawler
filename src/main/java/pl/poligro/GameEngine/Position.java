@@ -20,6 +20,20 @@ public class Position {
         this.y = y;
     }
 
+    public Position newPosition(MoveDirection moveDirection) {
+        switch (moveDirection) {
+            case UP:
+                return new Position(this.getX(), this.getY() - 1);
+            case DOWN:
+                return new Position(this.getX(), this.getY() + 1);
+            case LEFT:
+                return new Position(this.getX() - 1, this.getY());
+            case RIGHT:
+                return new Position(this.getX() + 1, this.getY());
+        }
+        return this;
+    }
+
     public static MoveDirection randomDirection() {
         int newPosition = rand.nextInt(4);
 
