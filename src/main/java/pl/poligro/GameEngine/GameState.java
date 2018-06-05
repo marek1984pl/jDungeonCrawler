@@ -7,19 +7,21 @@
 
 package pl.poligro.GameEngine;
 
+import org.slf4j.LoggerFactory;
 import pl.poligro.Actor.Monster;
 import pl.poligro.Actor.Player;
-import pl.poligro.Utils.GlobalConsts;
+import pl.poligro.App;
+import pl.poligro.GameEngine.Interface.Observable;
+import pl.poligro.Utils.GlobalConst;
 
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GameState {
+public class GameState implements Observable {
 
-    private Logger log = Logger.getLogger(getClass().getName());
+    org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
 
     private Random rand = new Random();
 
@@ -27,27 +29,23 @@ public class GameState {
     private List<Monster> monsterList;
 
     private Integer turnNumber = 0;
-    private boolean changeTurn = false;
+    private Boolean changed = false;
 
     public void initGameWorld() {
 
         log.info("Initialize game world....");
 
+        setChanged();
+
         monsterList = Stream
                 // todo change new position constructor
-                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConsts.GAME_WINDOW_WIDTH_TILES), rand.nextInt(GlobalConsts.GAME_WINDOW_HEIGHT_TILES))))
+                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConst.GAME_WINDOW_WIDTH_TILES), rand.nextInt(GlobalConst.GAME_WINDOW_HEIGHT_TILES))))
                 .limit(20)
                 .collect(Collectors.toList());
 
 //        monsterList.forEach(System.out::println);
 
         log.info("Game world initialized!");
-    }
-
-    public void initUi() {
-        log.info("Initialize game UI....");
-        log.info("Game UI initialized!");
-
     }
 
     public void updateGameState() {
@@ -64,7 +62,7 @@ public class GameState {
     }
 
     public Integer nextTurn() {
-        changeTurn = true;
+        setChanged();
         return ++turnNumber;
     }
 
@@ -76,7 +74,7 @@ public class GameState {
 
     private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
         Position newPosition = currentPosition.newPosition(direction);
-        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConsts.GAME_WINDOW_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConsts.GAME_WINDOW_HEIGHT_TILES;
+        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConst.GAME_WINDOW_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConst.GAME_WINDOW_HEIGHT_TILES;
     }
 
     public Player getPlayer() {
@@ -103,15 +101,22 @@ public class GameState {
         this.turnNumber = turnNumber;
     }
 
-    public boolean isChangeTurn() {
-        return changeTurn;
-    }
-
-    public void setChangeTurn(boolean changeTurn) {
-        this.changeTurn = changeTurn;
-    }
-
     public Position getPlayerPos() {
         return getPlayer().getPosition();
+    }
+
+    @Override
+    public void setChanged() {
+        changed = true;
+    }
+
+    @Override
+    public void clearChanged() {
+        changed = false;
+    }
+
+    @Override
+    public Boolean hasChanged() {
+        return changed;
     }
 }

@@ -56,7 +56,7 @@ public class AssetManager {
         }
     }
 
-    public static Asset<Image> getGraphicsAssets() {
-        return graphicsAssets;
+    public static Image getGraphicsAsset(String assetName) {
+        return graphicsAssets.get(assetName);
     }
 }

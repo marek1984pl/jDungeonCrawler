@@ -66,4 +66,9 @@ public class Position {
     public void setY(Integer y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "x = " + x + ", y = " + y;
+    }
 }
