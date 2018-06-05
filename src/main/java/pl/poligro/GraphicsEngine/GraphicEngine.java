@@ -23,9 +23,6 @@ public class GraphicEngine extends JFrame {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
-    private static final int GAME_WINDOW_WIDTH = GlobalConsts.TILE_SIZE * GlobalConsts.WIDTH_TILES;
-    private static final int GAME_WINDOW_HEIGHT = GlobalConsts.TILE_SIZE * GlobalConsts.HEIGHT_TILES;
-
     private static final int FPS = 60;
 
     private boolean isRunning = true;
@@ -67,15 +64,15 @@ public class GraphicEngine extends JFrame {
 
     private void initialize() {
         setTitle("jDungeonCrawler");
-        setSize(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
+        setSize(GlobalConsts.MAIN_WINDOW_WIDTH_PX, GlobalConsts.MAIN_WINDOW_HEIGHT_PX);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
         insets = getInsets();
-        setSize(insets.left + GAME_WINDOW_WIDTH + insets.right, insets.top + getHeight() + insets.bottom);
+        setSize(insets.left + getWidth() + insets.right, insets.top + getHeight() + insets.bottom);
 
-        backBuffer = new BufferedImage(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        backBuffer = new BufferedImage(GlobalConsts.MAIN_WINDOW_WIDTH_PX, GlobalConsts.MAIN_WINDOW_HEIGHT_PX, BufferedImage.TYPE_INT_RGB);
         inputHandler = new InputHandler(this);
 
         g = getGraphics();
@@ -119,7 +116,7 @@ public class GraphicEngine extends JFrame {
     private void draw() {
         // 3C) render - game and ui render
         bbg.setColor(Color.BLACK);
-        bbg.fillRect(0, 0, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT);
+        bbg.fillRect(0, 0, GlobalConsts.MAIN_WINDOW_WIDTH_PX, GlobalConsts.MAIN_WINDOW_HEIGHT_PX);
 
         drawInBottomLayer();
         drawInMiddleLayer();
@@ -135,15 +132,15 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawInBottomLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 100, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+48, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+96, 300, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300+48, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 100, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+48, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+96, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300+48, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
     }
 
     private void drawInMiddleLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("VAMPIRE"), 100, 100, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), 150, 150, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("VAMPIRE"), 100, 100, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), 150, 150, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
     }
 
     private void drawInTopLayer() {
@@ -153,11 +150,11 @@ public class GraphicEngine extends JFrame {
 
     private void drawMonsters() {
         for (Monster monster : gameState.getMonsterList()) {
-            bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), monster.getPosition().getX() * GlobalConsts.TILE_SIZE, monster.getPosition().getY() * GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+            bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), monster.getPosition().getX() * GlobalConsts.TILE_SIZE_PX, monster.getPosition().getY() * GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
         }
     }
 
     private void drawPlayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("TROLL"), gameState.getPlayer().getPosition().getX() * GlobalConsts.TILE_SIZE, gameState.getPlayer().getPosition().getY() * GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, GlobalConsts.TILE_SIZE, this);
+        bbg.drawImage(AssetManager.getGraphicsAssets().get("TROLL"), gameState.getPlayer().getPosition().getX() * GlobalConsts.TILE_SIZE_PX, gameState.getPlayer().getPosition().getY() * GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
     }
 }

@@ -35,7 +35,7 @@ public class GameState {
 
         monsterList = Stream
                 // todo change new position constructor
-                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConsts.GAME_WIDTH_TILES), rand.nextInt(GlobalConsts.GAME_HEIGHT_TILES))))
+                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConsts.GAME_WINDOW_WIDTH_TILES), rand.nextInt(GlobalConsts.GAME_WINDOW_HEIGHT_TILES))))
                 .limit(20)
                 .collect(Collectors.toList());
 
@@ -76,7 +76,7 @@ public class GameState {
 
     private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
         Position newPosition = currentPosition.newPosition(direction);
-        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConsts.GAME_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConsts.GAME_HEIGHT_TILES;
+        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConsts.GAME_WINDOW_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConsts.GAME_WINDOW_HEIGHT_TILES;
     }
 
     public Player getPlayer() {
