@@ -10,6 +10,7 @@ package pl.poligro.GraphicsEngine;
 import pl.poligro.Actor.Monster;
 import pl.poligro.GameEngine.GameState;
 import pl.poligro.GameEngine.MoveDirection;
+import pl.poligro.GameEngine.Position;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
 import pl.poligro.Utils.GlobalConsts;
 
@@ -22,8 +23,6 @@ import java.util.logging.Logger;
 public class GraphicEngine extends JFrame {
 
     private Logger log = Logger.getLogger(getClass().getName());
-
-    private static final int FPS = 60;
 
     private boolean isRunning = true;
 
@@ -48,7 +47,7 @@ public class GraphicEngine extends JFrame {
             update();
             draw();
 
-            time = (1000 / FPS) - (System.currentTimeMillis() - time);
+            time = (1000 / GlobalConsts.FPS) - (System.currentTimeMillis() - time);
 
             if (time > 0) {
                 try {
@@ -115,8 +114,7 @@ public class GraphicEngine extends JFrame {
 
     private void draw() {
         // 3C) render - game and ui render
-        bbg.setColor(Color.BLACK);
-        bbg.fillRect(0, 0, GlobalConsts.MAIN_WINDOW_WIDTH_PX, GlobalConsts.MAIN_WINDOW_HEIGHT_PX);
+        clearGameWindow();
 
         drawInBottomLayer();
         drawInMiddleLayer();
@@ -128,19 +126,27 @@ public class GraphicEngine extends JFrame {
 
     }
 
+    private void clearGameWindow() {
+        bbg.setColor(Color.BLACK);
+        bbg.fillRect(0, 0, GlobalConsts.MAIN_WINDOW_WIDTH_PX, GlobalConsts.MAIN_WINDOW_HEIGHT_PX);
+    }
+
     private void drawUI() {
     }
 
     private void drawInBottomLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 100, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+48, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300+96, 300, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("WALL"), 300, 300+48, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        drawImage("WALL", 0, 0);
+        drawImage("WALL", 0, 1);
+        drawImage("WALL", 0, 2);
+        drawImage("WALL", 0, 3);
+        drawImage("WALL", 1, 0);
+        drawImage("WALL", 2, 0);
+        drawImage("WALL", 3, 0);
+        drawImage("WALL", 4, 0);
     }
 
     private void drawInMiddleLayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("VAMPIRE"), 100, 100, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), 150, 150, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+
     }
 
     private void drawInTopLayer() {
@@ -150,11 +156,19 @@ public class GraphicEngine extends JFrame {
 
     private void drawMonsters() {
         for (Monster monster : gameState.getMonsterList()) {
-            bbg.drawImage(AssetManager.getGraphicsAssets().get("PRIEST"), monster.getPosition().getX() * GlobalConsts.TILE_SIZE_PX, monster.getPosition().getY() * GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+            drawImage("PRIEST", monster.getPosition());
         }
     }
 
     private void drawPlayer() {
-        bbg.drawImage(AssetManager.getGraphicsAssets().get("TROLL"), gameState.getPlayer().getPosition().getX() * GlobalConsts.TILE_SIZE_PX, gameState.getPlayer().getPosition().getY() * GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+        drawImage("TROLL", gameState.getPlayerPos());
+    }
+
+    private void drawImage(String assetName, Integer posX, Integer posY) {
+        bbg.drawImage(AssetManager.getGraphicsAssets().get(assetName), posX * GlobalConsts.TILE_SIZE_PX, posY * GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, GlobalConsts.TILE_SIZE_PX, this);
+    }
+
+    private void drawImage(String assetName, Position pos) {
+        drawImage(assetName, pos.getX(), pos.getY());
     }
 }

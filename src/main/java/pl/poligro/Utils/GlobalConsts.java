@@ -9,6 +9,8 @@ package pl.poligro.Utils;
 
 public interface GlobalConsts {
 
+    Integer FPS = 60;
+
     Integer TILE_SIZE_PX = 48;
 
     Integer MAIN_WINDOW_WIDTH_TILES = 38;

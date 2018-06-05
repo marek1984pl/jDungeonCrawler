@@ -110,4 +110,8 @@ public class GameState {
     public void setChangeTurn(boolean changeTurn) {
         this.changeTurn = changeTurn;
     }
+
+    public Position getPlayerPos() {
+        return getPlayer().getPosition();
+    }
 }
