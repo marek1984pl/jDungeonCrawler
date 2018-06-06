@@ -7,14 +7,21 @@
 
 package pl.poligro.Utils;
 
+import java.awt.*;
+
 public interface GlobalConst {
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     Integer FPS = 60;
 
-    Integer TILE_SIZE_PX = 48;
+    Integer TILE_SIZE_PX = 40;
 
-    Integer MAIN_WINDOW_WIDTH_TILES = 38;
-    Integer MAIN_WINDOW_HEIGHT_TILES = 20;
+    Integer DESKTOP_RESOLUTION_WIDTH = ((int) screenSize.getWidth());
+    Integer DESKTOP_RESOLUTION_HEIGHT = ((int) screenSize.getHeight());
+
+    Integer MAIN_WINDOW_WIDTH_TILES = DESKTOP_RESOLUTION_WIDTH / TILE_SIZE_PX;
+    Integer MAIN_WINDOW_HEIGHT_TILES = DESKTOP_RESOLUTION_HEIGHT / TILE_SIZE_PX;
 
     Integer UI_WINDOW_WIDTH_TILES = 8;
     Integer UI_WINDOW_HEIGHT_TILES = MAIN_WINDOW_HEIGHT_TILES;

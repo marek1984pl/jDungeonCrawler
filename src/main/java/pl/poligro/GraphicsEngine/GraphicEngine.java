@@ -24,7 +24,7 @@ import java.awt.image.BufferedImage;
 
 public class GraphicEngine extends JFrame {
 
-    org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
+    private org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
 
     private boolean isRunning = true;
 
@@ -68,6 +68,8 @@ public class GraphicEngine extends JFrame {
         setSize(GlobalConst.MAIN_WINDOW_WIDTH_PX, GlobalConst.MAIN_WINDOW_HEIGHT_PX);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
 
         insets = getInsets();
@@ -93,6 +95,9 @@ public class GraphicEngine extends JFrame {
     }
 
     private void handleKeyboardInput() {
+        if (inputHandler.isKeyDown(KeyEvent.VK_ESCAPE)) {
+            isRunning = false;
+        }
         if (inputHandler.isKeyDown(KeyEvent.VK_D)) {
             gameState.movePlayer(MoveDirection.RIGHT);
             gameState.nextTurn();

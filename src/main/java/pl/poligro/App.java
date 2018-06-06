@@ -44,5 +44,6 @@ public class App {
 
         // 6) exit
         log.info("Application ended!");
+        System.exit(0);
     }
 }
