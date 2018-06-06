@@ -13,6 +13,7 @@ import java.util.List;
 public interface Observable {
 
     List<Observer> observers = new ArrayList<>();
+    List<Boolean> changed = new ArrayList<>();
 
     default void addObserver(Observer observer) {
         if (observer == null) {
@@ -43,11 +44,17 @@ public interface Observable {
         observers.clear();
     }
 
-    void setChanged();
+    default void setChanged() {
+        changed.add(true);
+    }
 
-    void clearChanged();
+    default void clearChanged() {
+        changed.clear();
+    }
 
-    Boolean hasChanged();
+    default Boolean hasChanged() {
+        return !changed.isEmpty();
+    }
 
     default Integer countObservers() {
         return observers.size();

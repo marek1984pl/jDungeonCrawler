@@ -29,7 +29,6 @@ public class GameState implements Observable {
     private List<Monster> monsterList;
 
     private Integer turnNumber = 0;
-    private Boolean changed = false;
 
     public void initGameWorld() {
 
@@ -103,20 +102,5 @@ public class GameState implements Observable {
 
     public Position getPlayerPos() {
         return getPlayer().getPosition();
-    }
-
-    @Override
-    public void setChanged() {
-        changed = true;
-    }
-
-    @Override
-    public void clearChanged() {
-        changed = false;
-    }
-
-    @Override
-    public Boolean hasChanged() {
-        return changed;
     }
 }
