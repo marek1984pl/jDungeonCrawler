@@ -5,10 +5,10 @@
  * Time: 20:16
  */
 
-package pl.poligro.Actor;
+package pl.poligro.Entities.Actor;
 
-import pl.poligro.Actor.Intefaces.Movable;
-import pl.poligro.Entity.Entity;
+import pl.poligro.Entities.Actor.Intefaces.Movable;
+import pl.poligro.Entities.Entity;
 import pl.poligro.GameEngine.MoveDirection;
 import pl.poligro.GameEngine.Position;
 

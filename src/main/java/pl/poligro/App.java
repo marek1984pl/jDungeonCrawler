@@ -9,7 +9,8 @@ package pl.poligro;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.poligro.GameEngine.GameState;
+import pl.poligro.GameEngine.Exceptions.EntityNotFoundException;
+import pl.poligro.GameEngine.GameEngine;
 import pl.poligro.GameEngine.GameUi;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
 import pl.poligro.GraphicsEngine.GraphicEngine;
@@ -24,21 +25,21 @@ public class App {
         // 1) init resources - libs, subsystems, assets
         GraphicEngine graphicEngine = new GraphicEngine();
         AssetManager assetManager = new AssetManager();
-        GameState gameState = new GameState();
+        GameEngine gameEngine = new GameEngine();
         GameUi gameUi = new GameUi();
 
-        // 2) init gameState - load gameState assets, init gameState world, init physics, init ui
+        // 2) init gameEngine - load gameEngine assets, init gameEngine world, init physics, init ui
         assetManager.loadAssetsData();
-        gameState.initGameWorld();
+        gameEngine.initGameWorld();
 
         log.info("Initialize game UI....");
-        gameState.addObserver(gameUi);
+        gameEngine.addObserver(gameUi);
         log.info("Game UI initialized!");
 
         // 3) main loop - user input, update, render, sync
-        graphicEngine.run(gameState);
+        graphicEngine.run(gameEngine);
 
-        // 4) clean up gameState - destroy obj, unload assets
+        // 4) clean up gameEngine - destroy obj, unload assets
 
         // 5) release resources - unload libs, subsystem, files
 

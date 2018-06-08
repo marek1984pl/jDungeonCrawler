@@ -36,7 +36,7 @@ public class GameUi implements Observer {
         g.setColor(Color.WHITE);
         g.drawRect(0, 0, GlobalConst.UI_WINDOW_WIDTH_PX - 1, GlobalConst.UI_WINDOW_HEIGHT_PX - 1);
         g.setColor(Color.GREEN);
-        g.drawString(((GameState) observable).getPlayer().getName(), 10, 20);
-        g.drawString(((GameState) observable).getPlayer().getPosition().toString() , 10, 35);
+        g.drawString(((GameEngine) observable).getPlayer().getName(), 10, 20);
+        g.drawString(((GameEngine) observable).getPlayer().getPosition().toString() , 10, 35);
     }
 }

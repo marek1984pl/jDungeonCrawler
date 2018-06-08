@@ -11,14 +11,14 @@ import java.awt.*;
 
 public interface GlobalConst {
 
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 
     Integer FPS = 60;
 
     Integer TILE_SIZE_PX = 40;
 
-    Integer DESKTOP_RESOLUTION_WIDTH = ((int) screenSize.getWidth());
-    Integer DESKTOP_RESOLUTION_HEIGHT = ((int) screenSize.getHeight());
+    Integer DESKTOP_RESOLUTION_WIDTH = ((int) SCREEN_SIZE.getWidth());
+    Integer DESKTOP_RESOLUTION_HEIGHT = ((int) SCREEN_SIZE.getHeight());
 
     Integer MAIN_WINDOW_WIDTH_TILES = DESKTOP_RESOLUTION_WIDTH / TILE_SIZE_PX;
     Integer MAIN_WINDOW_HEIGHT_TILES = DESKTOP_RESOLUTION_HEIGHT / TILE_SIZE_PX;

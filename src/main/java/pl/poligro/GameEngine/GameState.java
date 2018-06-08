@@ -1,106 +1,76 @@
 /*
  * Copyright 2018 Marek Morawiec
  * User: marek
- * Date: 30.05.2018
- * Time: 20:06
+ * Date: 07.06.2018
+ * Time: 18:52
  */
 
 package pl.poligro.GameEngine;
 
-import org.slf4j.LoggerFactory;
-import pl.poligro.Actor.Monster;
-import pl.poligro.Actor.Player;
-import pl.poligro.App;
-import pl.poligro.GameEngine.Interface.Observable;
-import pl.poligro.Utils.GlobalConst;
+import pl.poligro.Entities.Entity;
+import pl.poligro.GameEngine.Exceptions.EntityNotFoundException;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
 
-public class GameState implements Observable {
+public class GameState {
 
-    org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
+    private List<Entity> gameState = new ArrayList<>();
 
-    private Random rand = new Random();
+    public Entity getEntityByPosition(final Position position) throws EntityNotFoundException {
+        final Optional<Entity> first = gameState
+                .stream()
+                .filter(entity -> entity.getPosition().equals(position))
+                .findFirst();
 
-    private Player player = new Player("Zodgar");
-    private List<Monster> monsterList;
-
-    private Integer turnNumber = 0;
-
-    public void initGameWorld() {
-
-        log.info("Initialize game world....");
-
-        setChanged();
-
-        monsterList = Stream
-                // todo change new position constructor
-                .generate(() -> new Monster(new Position(rand.nextInt(GlobalConst.GAME_WINDOW_WIDTH_TILES), rand.nextInt(GlobalConst.GAME_WINDOW_HEIGHT_TILES))))
-                .limit(20)
-                .collect(Collectors.toList());
-
-//        monsterList.forEach(System.out::println);
-
-        log.info("Game world initialized!");
+        return first.orElseThrow(EntityNotFoundException::new);
     }
 
-    public void updateGameState() {
-        moveMonsters();
+    public Entity getEntityById(final String  entityId) throws EntityNotFoundException {
+        final Optional<Entity> first = gameState
+                .stream()
+                .filter(entity -> entity.getId().equals(entityId))
+                .findFirst();
+
+        return first.orElseThrow(EntityNotFoundException::new);
     }
 
-    private void moveMonsters() {
-        for (Monster monster : monsterList) {
-            MoveDirection newDirection = Position.randomDirection();
-            if (checkIfNewPositionIsInGameWindow(monster.getPosition(), newDirection)) {
-                monster.move(newDirection);
-            }
+//    public Boolean setEntity(final Entity entity) throws EntityNotFoundException {
+//        Entity entityToReplace = getEntityById(entity.getId());
+//
+//        if (entityToReplace.getPosition().equals(entity.getPosition()) && gameState.remove(getEntityById(entity.getId()))) {
+//            gameState.add(entity);
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public Boolean checkIfEntityExists(Entity entity) {
+        return gameState.contains(entity);
+    }
+
+    public Boolean addEntity(final Entity entity) {
+        if (!checkIfEntityExists(entity)) {
+            gameState.add(entity);
+            return true;
+        }
+        return false;
+    }
+
+    // todo remove casting
+    public void addEntities(final Collection entities) {
+        for (Object entity : entities) {
+            addEntity((Entity) entity);
         }
     }
 
-    public Integer nextTurn() {
-        setChanged();
-        return ++turnNumber;
+    public List<Entity> getGameState() {
+        return gameState;
     }
 
-    public void movePlayer(MoveDirection direction) {
-        if (checkIfNewPositionIsInGameWindow(player.getPosition(), direction)) {
-            player.move(direction);
-        }
-    }
-
-    private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
-        Position newPosition = currentPosition.newPosition(direction);
-        return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConst.GAME_WINDOW_WIDTH_TILES && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConst.GAME_WINDOW_HEIGHT_TILES;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public List<Monster> getMonsterList() {
-        return monsterList;
-    }
-
-    public void setMonsterList(List<Monster> monsterList) {
-        this.monsterList = monsterList;
-    }
-
-    public Integer getTurnNumber() {
-        return turnNumber;
-    }
-
-    public void setTurnNumber(Integer turnNumber) {
-        this.turnNumber = turnNumber;
-    }
-
-    public Position getPlayerPos() {
-        return getPlayer().getPosition();
+    public void setGameState(List<Entity> gameState) {
+        this.gameState = gameState;
     }
 }

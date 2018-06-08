@@ -5,7 +5,7 @@
  * Time: 20:16
  */
 
-package pl.poligro.Actor;
+package pl.poligro.Entities.Actor;
 
 public enum ActorType {
     PLAYER, MONSTER, NPC

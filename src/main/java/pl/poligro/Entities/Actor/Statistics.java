@@ -5,7 +5,7 @@
  * Time: 19:54
  */
 
-package pl.poligro.Actor;
+package pl.poligro.Entities.Actor;
 
 public class Statistics {
 

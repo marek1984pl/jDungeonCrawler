@@ -5,7 +5,7 @@
  * Time: 20:16
  */
 
-package pl.poligro.Actor.Intefaces;
+package pl.poligro.Entities.Actor.Intefaces;
 
 import pl.poligro.GameEngine.MoveDirection;
 

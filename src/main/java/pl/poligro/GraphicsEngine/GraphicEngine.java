@@ -8,9 +8,10 @@
 package pl.poligro.GraphicsEngine;
 
 import org.slf4j.LoggerFactory;
-import pl.poligro.Actor.Monster;
+import pl.poligro.Entities.Actor.Monster;
 import pl.poligro.App;
-import pl.poligro.GameEngine.GameState;
+import pl.poligro.Entities.Entity;
+import pl.poligro.GameEngine.GameEngine;
 import pl.poligro.GameEngine.GameUi;
 import pl.poligro.GameEngine.MoveDirection;
 import pl.poligro.GameEngine.Position;
@@ -28,7 +29,7 @@ public class GraphicEngine extends JFrame {
 
     private boolean isRunning = true;
 
-    private GameState gameState;
+    private GameEngine gameEngine;
 
     private Graphics g;
     private Graphics bbg;
@@ -36,11 +37,11 @@ public class GraphicEngine extends JFrame {
     private Insets insets;
     private InputHandler inputHandler;
 
-    public void run(GameState gameState) {
+    public void run(GameEngine gameEngine) {
 
         log.info("Initializing graphics engine...");
         initialize();
-        this.gameState = gameState;
+        this.gameEngine = gameEngine;
         log.info("Graphics engine initialized!");
 
         while (isRunning) {
@@ -87,10 +88,10 @@ public class GraphicEngine extends JFrame {
         // 3A) user input - keyboard / mouse
         handleKeyboardInput();
 
-        if (gameState.hasChanged()) {
-            gameState.notifyObservers();
+        if (gameEngine.hasChanged()) {
+            gameEngine.notifyObservers();
             // 3B) update - process user input, physics / ai / world / network / ui
-            gameState.updateGameState();
+            gameEngine.updateGameState();
         }
     }
 
@@ -99,20 +100,20 @@ public class GraphicEngine extends JFrame {
             isRunning = false;
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_D)) {
-            gameState.movePlayer(MoveDirection.RIGHT);
-            gameState.nextTurn();
+            gameEngine.movePlayer(MoveDirection.RIGHT);
+            gameEngine.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_A)) {
-            gameState.movePlayer(MoveDirection.LEFT);
-            gameState.nextTurn();
+            gameEngine.movePlayer(MoveDirection.LEFT);
+            gameEngine.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_W)) {
-            gameState.movePlayer(MoveDirection.UP);
-            gameState.nextTurn();
+            gameEngine.movePlayer(MoveDirection.UP);
+            gameEngine.nextTurn();
         }
         if (inputHandler.isKeyDown(KeyEvent.VK_S)) {
-            gameState.movePlayer(MoveDirection.DOWN);
-            gameState.nextTurn();
+            gameEngine.movePlayer(MoveDirection.DOWN);
+            gameEngine.nextTurn();
         }
     }
 
@@ -164,18 +165,26 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawInTopLayer() {
-        drawMonsters();
-        drawPlayer();
+        for (Entity entity : gameEngine.getGameState().getGameState()) {
+            drawEntity(entity);
+        }
+//        drawMonsters();
+//        drawPlayer();
     }
 
     private void drawMonsters() {
-        for (Monster monster : gameState.getMonsterList()) {
+        for (Monster monster : gameEngine.getMonsterList()) {
+            drawEntity(monster);
             drawImage("PRIEST", monster.getPosition());
         }
     }
 
     private void drawPlayer() {
-        drawImage("TROLL", gameState.getPlayerPos());
+        drawEntity(gameEngine.getPlayer());
+    }
+
+    private void drawEntity(Entity entity) {
+        drawImage(entity.getGraphicsName(), entity.getPosition());
     }
 
     private void drawImage(String assetName, Integer posX, Integer posY) {
