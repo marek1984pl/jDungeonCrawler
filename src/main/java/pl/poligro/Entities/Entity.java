@@ -38,7 +38,7 @@ public abstract class Entity {
         this.entityType = entityType;
     }
 
-    public abstract void interactWith();
+    public abstract void interactWith(Entity entity);
 
     public String getGraphicsName() {
         return graphicsName;

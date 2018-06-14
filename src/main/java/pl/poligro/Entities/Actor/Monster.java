@@ -7,6 +7,7 @@
 
 package pl.poligro.Entities.Actor;
 
+import pl.poligro.Entities.Entity;
 import pl.poligro.Entities.EntityType;
 import pl.poligro.GameEngine.Position;
 import pl.poligro.Utils.NameGenerator;
@@ -17,7 +18,7 @@ public class Monster extends Actor {
         setName(NameGenerator.generateName());
         setType(ActorType.MONSTER);
         setEntityType(EntityType.MONSTER);
-        setGraphicsName("TOMB");
+        setGraphicsName("PRIEST");
     }
 
     public Monster(Position position) {
@@ -26,7 +27,7 @@ public class Monster extends Actor {
     }
 
     @Override
-    public void interactWith() {
+    public void interactWith(Entity entity) {
 
     }
 }

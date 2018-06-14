@@ -7,6 +7,8 @@
 
 package pl.poligro.GraphicsEngine.Assets;
 
+import pl.poligro.GraphicsEngine.Exceptions.AssetNotFoundException;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -57,6 +59,13 @@ public class AssetManager {
     }
 
     public static Image getGraphicsAsset(String assetName) {
-        return graphicsAssets.get(assetName);
+        //todo change this
+        Image image = null;
+        try {
+            image = graphicsAssets.get(assetName);
+        } catch (AssetNotFoundException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }

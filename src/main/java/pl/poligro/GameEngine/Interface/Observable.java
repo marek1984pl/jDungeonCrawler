@@ -35,7 +35,7 @@ public interface Observable {
         }
     }
 
-    default void notifyObservers(Observer observer) {
+    default void notifyObserver(Observer observer) {
         clearChanged();
         observer.update(this);
     }

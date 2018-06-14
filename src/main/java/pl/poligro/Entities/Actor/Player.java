@@ -7,6 +7,7 @@
 
 package pl.poligro.Entities.Actor;
 
+import pl.poligro.Entities.Entity;
 import pl.poligro.Entities.EntityType;
 import pl.poligro.GameEngine.Position;
 
@@ -16,12 +17,12 @@ public class Player extends Actor {
         setName(name);
         setType(ActorType.PLAYER);
         setEntityType(EntityType.PLAYER);
-        setPosition(new Position(0, 0));
+        setPosition(new Position(5, 5));
         setGraphicsName("TROLL");
     }
 
     @Override
-    public void interactWith() {
-
+    public void interactWith(Entity entity) {
+//        entity.interactWith(this);
     }
 }

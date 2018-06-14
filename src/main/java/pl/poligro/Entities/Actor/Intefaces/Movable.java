@@ -10,6 +10,5 @@ package pl.poligro.Entities.Actor.Intefaces;
 import pl.poligro.GameEngine.MoveDirection;
 
 public interface Movable {
-
     Boolean move(MoveDirection moveDirection);
 }

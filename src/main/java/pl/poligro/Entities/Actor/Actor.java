@@ -58,20 +58,7 @@ public abstract class Actor extends Entity implements Movable {
 
     @Override
     public Boolean move(MoveDirection moveDirection) {
-        switch (moveDirection) {
-            case UP:
-                setPosition(new Position(getPosition().getX(), getPosition().getY() - 1));
-                break;
-            case DOWN:
-                setPosition(new Position(getPosition().getX(), getPosition().getY() + 1));
-                break;
-            case LEFT:
-                setPosition(new Position(getPosition().getX() - 1, getPosition().getY()));
-                break;
-            case RIGHT:
-                setPosition(new Position(getPosition().getX() + 1, getPosition().getY()));
-                break;
-        }
+        setPosition(getPosition().getNewPosition(moveDirection));
         return null;
     }
 

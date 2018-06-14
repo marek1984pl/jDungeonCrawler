@@ -1,0 +1,5 @@
+priest.gif;PRIEST
+troll.png;TROLL
+Vampire2.PNG;VAMPIRE
+wall.png;WALL
+tomb.png;TOMB

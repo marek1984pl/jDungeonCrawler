@@ -7,6 +7,8 @@
 
 package pl.poligro.GraphicsEngine.Assets;
 
+import pl.poligro.GraphicsEngine.Exceptions.AssetNotFoundException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,10 @@ public class Asset<T> {
 
     private Map<String, T> assets = new HashMap<>();
 
-    public T get(String nameOfObject) {
+    public T get(String nameOfObject) throws AssetNotFoundException {
+        if (assets.get(nameOfObject) == null) {
+            throw new AssetNotFoundException(nameOfObject);
+        }
         return assets.get(nameOfObject);
     }
 

@@ -7,6 +7,6 @@
 
 package pl.poligro.GameEngine.Exceptions;
 
-public class EntityNotFoundException extends Exception{
+public class EntityNotFoundException extends Exception {
 
 }

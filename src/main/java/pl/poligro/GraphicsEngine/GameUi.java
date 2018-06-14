@@ -5,11 +5,13 @@
  * Time: 17:28
  */
 
-package pl.poligro.GameEngine;
+package pl.poligro.GraphicsEngine;
 
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.poligro.App;
+import pl.poligro.GameEngine.GameState;
 import pl.poligro.GameEngine.Interface.Observable;
 import pl.poligro.GameEngine.Interface.Observer;
 import pl.poligro.Utils.GlobalConst;
@@ -19,10 +21,10 @@ import java.awt.image.BufferedImage;
 
 public class GameUi implements Observer {
 
-    org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
+    private Logger log = LoggerFactory.getLogger(getClass().getName());
 
     private static Image uiImage = new BufferedImage(GlobalConst.UI_WINDOW_WIDTH_PX, GlobalConst.UI_WINDOW_HEIGHT_PX, BufferedImage.TYPE_INT_RGB);
-    Graphics g = uiImage.getGraphics();
+    private Graphics g = uiImage.getGraphics();
 
     public static Image getUiImage() {
         return uiImage;
@@ -36,7 +38,12 @@ public class GameUi implements Observer {
         g.setColor(Color.WHITE);
         g.drawRect(0, 0, GlobalConst.UI_WINDOW_WIDTH_PX - 1, GlobalConst.UI_WINDOW_HEIGHT_PX - 1);
         g.setColor(Color.GREEN);
-        g.drawString(((GameEngine) observable).getPlayer().getName(), 10, 20);
-        g.drawString(((GameEngine) observable).getPlayer().getPosition().toString() , 10, 35);
+        // todo change to more generic
+
+        if (observable instanceof GameState) {
+            g.drawString(((GameState) observable).getPlayer().getName(), 10, 20);
+            g.drawString(((GameState) observable).getPlayer().getPosition().toString() , 10, 35);
+            g.drawString(((GameState) observable).getTurnNumber().toString(), 10, 50);
+        }
     }
 }

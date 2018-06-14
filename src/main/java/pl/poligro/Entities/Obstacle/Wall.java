@@ -7,14 +7,20 @@
 
 package pl.poligro.Entities.Obstacle;
 
+import pl.poligro.Entities.Entity;
+import pl.poligro.Entities.EntityType;
+import pl.poligro.GameEngine.Position;
+
 public class Wall extends Obstacle {
 
-    public Wall() {
-        setGraphicsName("wall.png");
+    public Wall(Position position) {
+        setGraphicsName("WALL");
+        setEntityType(EntityType.WALL);
+        setPosition(position);
     }
 
     @Override
-    public void interactWith() {
+    public void interactWith(Entity entity) {
 
     }
 }

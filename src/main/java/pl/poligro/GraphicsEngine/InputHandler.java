@@ -7,6 +7,7 @@
 
 package pl.poligro.GraphicsEngine;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.poligro.App;
 
@@ -16,7 +17,7 @@ import java.awt.event.KeyListener;
 
 public class InputHandler implements KeyListener {
 
-    org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
+    private Logger log = LoggerFactory.getLogger(App.class.getName());
 
     private boolean[] keys = new boolean[256];
 

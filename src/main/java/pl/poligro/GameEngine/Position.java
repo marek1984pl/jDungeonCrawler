@@ -7,6 +7,9 @@
 
 package pl.poligro.GameEngine;
 
+import javafx.geometry.Pos;
+import pl.poligro.Utils.GlobalConst;
+
 import java.util.Random;
 
 public class Position {
@@ -20,7 +23,7 @@ public class Position {
         this.y = y;
     }
 
-    public Position newPosition(MoveDirection moveDirection) {
+    public Position getNewPosition(MoveDirection moveDirection) {
         switch (moveDirection) {
             case UP:
                 return new Position(this.getX(), this.getY() - 1);
@@ -34,7 +37,7 @@ public class Position {
         return this;
     }
 
-    public static MoveDirection randomDirection() {
+    public static MoveDirection getRandomDirection() {
         int newPosition = rand.nextInt(4);
 
         switch (newPosition) {
@@ -51,24 +54,30 @@ public class Position {
         }
     }
 
-    public Integer getX() {
-        return x;
+    public static Position getNewRandomPosition() {
+        return new Position(rand.nextInt(GlobalConst.GAME_WINDOW_WIDTH_TILES), rand.nextInt(GlobalConst.GAME_WINDOW_HEIGHT_TILES));
     }
 
-    public void setX(Integer x) {
-        this.x = x;
+    public Integer getX() {
+        return x;
     }
 
     public Integer getY() {
         return y;
     }
 
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
     @Override
     public String toString() {
         return "x = " + x + ", y = " + y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Position position = (Position) o;
+
+        return (x != null ? x.equals(position.x) : position.x == null) && (y != null ? y.equals(position.y) : position.y == null);
     }
 }

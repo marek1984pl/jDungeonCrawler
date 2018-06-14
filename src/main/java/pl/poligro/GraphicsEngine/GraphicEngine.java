@@ -7,14 +7,11 @@
 
 package pl.poligro.GraphicsEngine;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.poligro.Entities.Actor.Monster;
 import pl.poligro.App;
 import pl.poligro.Entities.Entity;
-import pl.poligro.GameEngine.GameEngine;
-import pl.poligro.GameEngine.GameUi;
-import pl.poligro.GameEngine.MoveDirection;
-import pl.poligro.GameEngine.Position;
+import pl.poligro.GameEngine.*;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
 import pl.poligro.Utils.GlobalConst;
 
@@ -22,14 +19,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 
 public class GraphicEngine extends JFrame {
 
-    private org.slf4j.Logger log = LoggerFactory.getLogger(App.class.getName());
+    private Logger log = LoggerFactory.getLogger(App.class.getName());
 
     private boolean isRunning = true;
 
     private GameEngine gameEngine;
+    private GameState gameState;
 
     private Graphics g;
     private Graphics bbg;
@@ -37,12 +36,17 @@ public class GraphicEngine extends JFrame {
     private Insets insets;
     private InputHandler inputHandler;
 
-    public void run(GameEngine gameEngine) {
+    public void run(GameEngine gameEngine, GameState gameState) {
 
         log.info("Initializing graphics engine...");
         initialize();
+
         this.gameEngine = gameEngine;
+        this.gameState = gameState;
+
         log.info("Graphics engine initialized!");
+
+        gameEngine.updateGameState();
 
         while (isRunning) {
             long time = System.currentTimeMillis();
@@ -88,11 +92,8 @@ public class GraphicEngine extends JFrame {
         // 3A) user input - keyboard / mouse
         handleKeyboardInput();
 
-        if (gameEngine.hasChanged()) {
-            gameEngine.notifyObservers();
-            // 3B) update - process user input, physics / ai / world / network / ui
-            gameEngine.updateGameState();
-        }
+        // 3B) update - process user input, physics / ai / world / network / ui
+//        gameEngine.updateGameState();
     }
 
     private void handleKeyboardInput() {
@@ -137,7 +138,6 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawUI() {
-//        drawImage(GameUi.getUiImage()., GlobalConst.UI_WINDOW_START_POS_X, GlobalConst.UI_WINDOW_START_POS_Y);
         bbg.drawImage(GameUi.getUiImage(), GlobalConst.UI_WINDOW_START_POS_X, GlobalConst.UI_WINDOW_START_POS_Y, GlobalConst.UI_WINDOW_WIDTH_PX, GlobalConst.UI_WINDOW_HEIGHT_PX, this);
     }
 
@@ -150,14 +150,7 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawObstacles() {
-        drawImage("WALL", 0, 0);
-        drawImage("WALL", 0, 1);
-        drawImage("WALL", 0, 2);
-        drawImage("WALL", 0, 3);
-        drawImage("WALL", 1, 0);
-        drawImage("WALL", 2, 0);
-        drawImage("WALL", 3, 0);
-        drawImage("WALL", 4, 0);
+        drawEntities(gameState.getObstacles());
     }
 
     private void drawInMiddleLayer() {
@@ -165,33 +158,25 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawInTopLayer() {
-        for (Entity entity : gameEngine.getGameState().getGameState()) {
-            drawEntity(entity);
-        }
-//        drawMonsters();
-//        drawPlayer();
+        drawMonsters();
+        drawPlayer();
     }
 
     private void drawMonsters() {
-        for (Monster monster : gameEngine.getMonsterList()) {
-            drawEntity(monster);
-            drawImage("PRIEST", monster.getPosition());
-        }
+        drawEntities(gameState.getMonsterList());
     }
 
     private void drawPlayer() {
-        drawEntity(gameEngine.getPlayer());
+        drawEntity(gameState.getPlayer());
+    }
+
+    private void drawEntities(Collection<Entity> entitys) {
+        for (Entity entity : entitys) {
+            drawEntity(entity);
+        }
     }
 
     private void drawEntity(Entity entity) {
-        drawImage(entity.getGraphicsName(), entity.getPosition());
-    }
-
-    private void drawImage(String assetName, Integer posX, Integer posY) {
-        bbg.drawImage(AssetManager.getGraphicsAsset(assetName), posX * GlobalConst.TILE_SIZE_PX, posY * GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, this);
-    }
-
-    private void drawImage(String assetName, Position pos) {
-        drawImage(assetName, pos.getX(), pos.getY());
+        bbg.drawImage(AssetManager.getGraphicsAsset(entity.getGraphicsName()), entity.getPosition().getX() * GlobalConst.TILE_SIZE_PX, entity.getPosition().getY() * GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, this);
     }
 }

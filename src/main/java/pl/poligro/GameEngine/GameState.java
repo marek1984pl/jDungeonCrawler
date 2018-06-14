@@ -7,29 +7,41 @@
 
 package pl.poligro.GameEngine;
 
+import pl.poligro.Entities.Actor.Player;
 import pl.poligro.Entities.Entity;
+import pl.poligro.Entities.EntityType;
 import pl.poligro.GameEngine.Exceptions.EntityNotFoundException;
+import pl.poligro.GameEngine.Interface.Observable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class GameState {
+public class GameState implements Observable {
 
-    private List<Entity> gameState = new ArrayList<>();
+    //todo move methods to GameEngine
 
-    public Entity getEntityByPosition(final Position position) throws EntityNotFoundException {
-        final Optional<Entity> first = gameState
+    private List<Entity> gameEntities = new ArrayList<>();
+    private Integer turnNumber = 0;
+
+    private Player player = new Player("Zodgar");
+
+    public List<Entity> getGameEntities() {
+        return gameEntities;
+    }
+
+    public Entity getEntityByPosition(final Position position) {
+        final Optional<Entity> first = gameEntities
                 .stream()
                 .filter(entity -> entity.getPosition().equals(position))
                 .findFirst();
 
-        return first.orElseThrow(EntityNotFoundException::new);
+        return first.orElse(null);
     }
 
-    public Entity getEntityById(final String  entityId) throws EntityNotFoundException {
-        final Optional<Entity> first = gameState
+    public Entity getEntityById(final String entityId) throws EntityNotFoundException {
+        final Optional<Entity> first = gameEntities
                 .stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .findFirst();
@@ -37,40 +49,30 @@ public class GameState {
         return first.orElseThrow(EntityNotFoundException::new);
     }
 
-//    public Boolean setEntity(final Entity entity) throws EntityNotFoundException {
-//        Entity entityToReplace = getEntityById(entity.getId());
-//
-//        if (entityToReplace.getPosition().equals(entity.getPosition()) && gameState.remove(getEntityById(entity.getId()))) {
-//            gameState.add(entity);
-//            return true;
-//        }
-//        return false;
-//    }
-
-    public Boolean checkIfEntityExists(Entity entity) {
-        return gameState.contains(entity);
+    public List<Entity> getEntitiesByType(EntityType entityType) {
+        return gameEntities
+                .stream()
+                .filter(entity -> entity.getEntityType().equals(entityType))
+                .collect(Collectors.toList());
     }
 
-    public Boolean addEntity(final Entity entity) {
-        if (!checkIfEntityExists(entity)) {
-            gameState.add(entity);
-            return true;
-        }
-        return false;
+    public Integer getTurnNumber() {
+        return turnNumber;
     }
 
-    // todo remove casting
-    public void addEntities(final Collection entities) {
-        for (Object entity : entities) {
-            addEntity((Entity) entity);
-        }
+    public Player getPlayer() {
+        return player;
     }
 
-    public List<Entity> getGameState() {
-        return gameState;
+    public List<Entity> getMonsterList() {
+        return getEntitiesByType(EntityType.MONSTER);
     }
 
-    public void setGameState(List<Entity> gameState) {
-        this.gameState = gameState;
+    public void setTurnNumber(Integer turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public List<Entity> getObstacles() {
+        return getEntitiesByType(EntityType.WALL);
     }
 }
