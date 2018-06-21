@@ -32,6 +32,8 @@ public class GameEngine {
 
         this.gameState = gameState;
 
+        gameState.setTurnNumber(0);
+
         addEntities(Stream
                 // todo change new position constructor
                 .generate(() -> new Monster(Position.getNewRandomPosition()))
@@ -55,7 +57,7 @@ public class GameEngine {
                 .limit(50)
                 .collect(Collectors.toList()));
 
-//        monsterList.forEach(System.out::println);
+        gameState.setChanged();
         log.info("Game world initialized!");
     }
 
@@ -80,7 +82,6 @@ public class GameEngine {
     public void updateGameState() {
         // todo think about changed state, compare this to GameState.class and GraphicsEngine
         gameState.setChanged();
-        gameState.notifyObservers();
         moveMonsters();
     }
 
@@ -88,7 +89,12 @@ public class GameEngine {
         for (Entity monster : gameState.getMonsterList()) {
             MoveDirection newDirection = Position.getRandomDirection();
             if (checkIfNewPositionIsInGameWindow(monster.getPosition(), newDirection)) {
-//                monster.move(newDirection);
+                Entity entityToCheck = gameState.getEntityByPosition(monster.getPosition().getNewPosition(newDirection));
+                if (entityToCheck == null) {
+                    ((Monster) monster).move(newDirection);
+                } else {
+                    monster.interactWith(entityToCheck);
+                }
             }
         }
     }
@@ -114,5 +120,14 @@ public class GameEngine {
     private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
         Position newPosition = currentPosition.getNewPosition(direction);
         return newPosition.getX() >= 0 && newPosition.getX() <= GlobalConst.GAME_WINDOW_WIDTH_TILES - 1 && newPosition.getY() >= 0 && newPosition.getY() <= GlobalConst.GAME_WINDOW_HEIGHT_TILES - 1;
+    }
+
+    public void reset() {
+        gameState.getGameEntities().clear();
+        initGameWorld(gameState);
+    }
+
+    public void stopGame() {
+        gameState.setRunning(false);
     }
 }

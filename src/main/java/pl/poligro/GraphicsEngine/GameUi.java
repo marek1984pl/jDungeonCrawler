@@ -10,7 +10,6 @@ package pl.poligro.GraphicsEngine;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.poligro.App;
 import pl.poligro.GameEngine.GameState;
 import pl.poligro.GameEngine.Interface.Observable;
 import pl.poligro.GameEngine.Interface.Observer;

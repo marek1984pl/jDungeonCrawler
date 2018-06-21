@@ -10,45 +10,50 @@ package pl.poligro.GraphicsEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.poligro.App;
+import pl.poligro.GameEngine.GameEngine;
+import pl.poligro.GameEngine.MoveDirection;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class InputHandler implements KeyListener {
+public class InputHandler extends KeyAdapter {
 
     private Logger log = LoggerFactory.getLogger(App.class.getName());
 
-    private boolean[] keys = new boolean[256];
+    private GameEngine gameEngine;
 
-    public InputHandler(Component c) {
+    public InputHandler(Component c, GameEngine gameEngine) {
         c.addKeyListener(this);
-    }
-
-    public boolean isKeyDown(int keyCode) {
-        if (keyCode > 0 && keyCode < 256) {
-            return keys[keyCode];
-        }
-        return false;
+        this.gameEngine = gameEngine;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() > 0 && e.getKeyCode() < 256) {
-            keys[e.getKeyCode()] = true;
-            log.debug("Key pressed: " + e.getKeyCode());
-        }
-    }
+        // 3B) update - process user input, physics / ai / world / network / ui
+        log.debug("Key pressed : " + e.getKeyCode());
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() > 0 && e.getKeyCode() < 256) {
-            keys[e.getKeyCode()] = false;
-            log.debug("Key released: " + e.getKeyCode());
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            gameEngine.stopGame();
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            gameEngine.movePlayer(MoveDirection.RIGHT);
+            gameEngine.nextTurn();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            gameEngine.movePlayer(MoveDirection.LEFT);
+            gameEngine.nextTurn();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            gameEngine.movePlayer(MoveDirection.UP);
+            gameEngine.nextTurn();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            gameEngine.movePlayer(MoveDirection.DOWN);
+            gameEngine.nextTurn();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            gameEngine.reset();
+        }
     }
 }

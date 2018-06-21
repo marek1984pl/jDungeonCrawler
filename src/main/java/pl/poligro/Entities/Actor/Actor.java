@@ -10,7 +10,6 @@ package pl.poligro.Entities.Actor;
 import pl.poligro.Entities.Actor.Intefaces.Movable;
 import pl.poligro.Entities.Entity;
 import pl.poligro.GameEngine.MoveDirection;
-import pl.poligro.GameEngine.Position;
 
 public abstract class Actor extends Entity implements Movable {
 

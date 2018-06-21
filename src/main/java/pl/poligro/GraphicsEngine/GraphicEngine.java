@@ -17,7 +17,6 @@ import pl.poligro.Utils.GlobalConst;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 
@@ -25,33 +24,25 @@ public class GraphicEngine extends JFrame {
 
     private Logger log = LoggerFactory.getLogger(App.class.getName());
 
-    private boolean isRunning = true;
-
-    private GameEngine gameEngine;
     private GameState gameState;
 
     private Graphics g;
     private Graphics bbg;
     private BufferedImage backBuffer;
     private Insets insets;
-    private InputHandler inputHandler;
 
-    public void run(GameEngine gameEngine, GameState gameState) {
+    public void run(GameState gameState) {
 
         log.info("Initializing graphics engine...");
         initialize();
 
-        this.gameEngine = gameEngine;
         this.gameState = gameState;
 
         log.info("Graphics engine initialized!");
 
-        gameEngine.updateGameState();
-
-        while (isRunning) {
+        while (gameState.isRunning()) {
             long time = System.currentTimeMillis();
 
-            update();
             draw();
 
             time = (1000 / GlobalConst.FPS) - (System.currentTimeMillis() - time);
@@ -64,8 +55,6 @@ public class GraphicEngine extends JFrame {
                 }
             }
         }
-
-        setVisible(false);
     }
 
     private void initialize() {
@@ -81,41 +70,9 @@ public class GraphicEngine extends JFrame {
         setSize(insets.left + getWidth() + insets.right, insets.top + getHeight() + insets.bottom);
 
         backBuffer = new BufferedImage(GlobalConst.MAIN_WINDOW_WIDTH_PX, GlobalConst.MAIN_WINDOW_HEIGHT_PX, BufferedImage.TYPE_INT_RGB);
-        inputHandler = new InputHandler(this);
 
         g = getGraphics();
         bbg = backBuffer.getGraphics();
-    }
-
-    private void update() {
-
-        // 3A) user input - keyboard / mouse
-        handleKeyboardInput();
-
-        // 3B) update - process user input, physics / ai / world / network / ui
-//        gameEngine.updateGameState();
-    }
-
-    private void handleKeyboardInput() {
-        if (inputHandler.isKeyDown(KeyEvent.VK_ESCAPE)) {
-            isRunning = false;
-        }
-        if (inputHandler.isKeyDown(KeyEvent.VK_D)) {
-            gameEngine.movePlayer(MoveDirection.RIGHT);
-            gameEngine.nextTurn();
-        }
-        if (inputHandler.isKeyDown(KeyEvent.VK_A)) {
-            gameEngine.movePlayer(MoveDirection.LEFT);
-            gameEngine.nextTurn();
-        }
-        if (inputHandler.isKeyDown(KeyEvent.VK_W)) {
-            gameEngine.movePlayer(MoveDirection.UP);
-            gameEngine.nextTurn();
-        }
-        if (inputHandler.isKeyDown(KeyEvent.VK_S)) {
-            gameEngine.movePlayer(MoveDirection.DOWN);
-            gameEngine.nextTurn();
-        }
     }
 
     private void draw() {
@@ -170,8 +127,8 @@ public class GraphicEngine extends JFrame {
         drawEntity(gameState.getPlayer());
     }
 
-    private void drawEntities(Collection<Entity> entitys) {
-        for (Entity entity : entitys) {
+    private void drawEntities(Collection<Entity> entities) {
+        for (Entity entity : entities) {
             drawEntity(entity);
         }
     }

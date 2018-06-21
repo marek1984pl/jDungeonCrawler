@@ -23,7 +23,8 @@ public class GameState implements Observable {
     //todo move methods to GameEngine
 
     private List<Entity> gameEntities = new ArrayList<>();
-    private Integer turnNumber = 0;
+    private Integer turnNumber;
+    private boolean isRunning = true;
 
     private Player player = new Player("Zodgar");
 
@@ -40,13 +41,18 @@ public class GameState implements Observable {
         return first.orElse(null);
     }
 
-    public Entity getEntityById(final String entityId) throws EntityNotFoundException {
+    public Entity getEntityById(final String entityId) {
         final Optional<Entity> first = gameEntities
                 .stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .findFirst();
 
-        return first.orElseThrow(EntityNotFoundException::new);
+        try {
+            return first.orElseThrow(() -> new EntityNotFoundException(entityId));
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Entity> getEntitiesByType(EntityType entityType) {
@@ -74,5 +80,13 @@ public class GameState implements Observable {
 
     public List<Entity> getObstacles() {
         return getEntitiesByType(EntityType.WALL);
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }

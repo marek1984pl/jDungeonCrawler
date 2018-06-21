@@ -14,6 +14,7 @@ import pl.poligro.GameEngine.GameState;
 import pl.poligro.GraphicsEngine.GameUi;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
 import pl.poligro.GraphicsEngine.GraphicEngine;
+import pl.poligro.GraphicsEngine.InputHandler;
 
 public class App {
 
@@ -39,7 +40,10 @@ public class App {
         log.info("Game UI initialized!");
 
         // 3) main loop - user input, update, render, sync
-        graphicEngine.run(gameEngine, gameState);
+        // 3A) user input - keyboard / mouse
+        new InputHandler(graphicEngine, gameEngine);
+//        gameEngine.updateGameState();
+        graphicEngine.run(gameState);
 
         // 4) clean up gameEngine - destroy obj, unload assets
 

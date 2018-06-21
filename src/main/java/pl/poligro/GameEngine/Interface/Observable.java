@@ -46,6 +46,7 @@ public interface Observable {
 
     default void setChanged() {
         changed.add(true);
+        notifyObservers();
     }
 
     default void clearChanged() {

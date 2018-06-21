@@ -7,7 +7,6 @@
 
 package pl.poligro.GameEngine;
 
-import javafx.geometry.Pos;
 import pl.poligro.Utils.GlobalConst;
 
 import java.util.Random;
