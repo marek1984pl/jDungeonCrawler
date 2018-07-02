@@ -20,15 +20,13 @@ import java.util.stream.Collectors;
 
 public class GameState implements Observable {
 
-    //todo move methods to GameEngine
-
     private List<Entity> gameEntities = new ArrayList<>();
     private Integer turnNumber;
     private boolean isRunning = true;
 
     private Player player = new Player("Zodgar");
 
-    public List<Entity> getGameEntities() {
+    public List<Entity> getAllGameEntities() {
         return gameEntities;
     }
 

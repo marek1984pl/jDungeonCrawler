@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assets>
+	<dir>graph</dir>
+	<asset>
+		<name>PRIEST</name>
+		<file>priest.png</file>
+	</asset>
+	<asset>
+		<name>TROLL</name>
+		<file>troll.png</file>
+	</asset>
+	<asset>
+		<name>VAMPIRE</name>
+		<file>Vampire2.png</file>
+	</asset>
+	<asset>
+		<name>WALL</name>
+		<file>wall.png</file>
+	</asset>
+	<asset>
+		<name>TOMB</name>
+		<file>tomb.png</file>
+	</asset>
+</assets>

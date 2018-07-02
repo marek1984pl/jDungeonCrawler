@@ -104,6 +104,11 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawBackground() {
+        for (int i = 0; i < GlobalConst.GAME_WINDOW_WIDTH_TILES; ++i) {
+            for (int j = 0; j < GlobalConst.GAME_WINDOW_HEIGHT_TILES; ++j) {
+                drawImage(AssetManager.getGraphicsAsset("SAND_1"), new Position(i, j), GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX);
+            }
+        }
     }
 
     private void drawObstacles() {
@@ -117,6 +122,13 @@ public class GraphicEngine extends JFrame {
     private void drawInTopLayer() {
         drawMonsters();
         drawPlayer();
+        drawFPSCounter();
+    }
+
+    private void drawFPSCounter() {
+        bbg.setColor(Color.YELLOW);
+        bbg.setFont(new Font(Font.DIALOG, Font.BOLD, 32));
+        bbg.drawString("FPS: " + "60", GlobalConst.GAME_WINDOW_START_POS_X, 24);
     }
 
     private void drawMonsters() {
@@ -135,5 +147,13 @@ public class GraphicEngine extends JFrame {
 
     private void drawEntity(Entity entity) {
         bbg.drawImage(AssetManager.getGraphicsAsset(entity.getGraphicsName()), entity.getPosition().getX() * GlobalConst.TILE_SIZE_PX, entity.getPosition().getY() * GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, this);
+    }
+
+    private void drawImage(Image img, Integer posX, Integer posY, Integer sizeX, Integer sizeY) {
+        bbg.drawImage(img, posX * GlobalConst.TILE_SIZE_PX, posY * GlobalConst.TILE_SIZE_PX, sizeX, sizeY, this);
+    }
+
+    private void drawImage(Image img, Position position, Integer sizeX, Integer sizeY) {
+        drawImage(img, position.getX(), position.getY(), sizeX, sizeY);
     }
 }

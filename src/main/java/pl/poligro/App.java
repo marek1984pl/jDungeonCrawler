@@ -35,7 +35,6 @@ public class App {
         gameEngine.initGameWorld(gameState);
 
         log.info("Initialize game UI....");
-        // todo chane this to gameState
         gameState.addObserver(gameUi);
         log.info("Game UI initialized!");
 

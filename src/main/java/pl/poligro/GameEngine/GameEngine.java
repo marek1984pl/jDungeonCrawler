@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-//todo change this to gameState
 public class GameEngine {
 
     private Logger log = LoggerFactory.getLogger(App.class.getName());
@@ -35,7 +34,6 @@ public class GameEngine {
         gameState.setTurnNumber(0);
 
         addEntities(Stream
-                // todo change new position constructor
                 .generate(() -> new Monster(Position.getNewRandomPosition()))
                 .limit(20)
                 .collect(Collectors.toList()));
@@ -62,12 +60,12 @@ public class GameEngine {
     }
 
     public Boolean checkIfEntityExists(Entity entity) {
-        return gameState.getGameEntities().contains(entity);
+        return gameState.getAllGameEntities().contains(entity);
     }
 
     public Boolean addEntity(final Entity entity) {
         if (!checkIfEntityExists(entity)) {
-            gameState.getGameEntities().add(entity);
+            gameState.getAllGameEntities().add(entity);
             return true;
         }
         return false;
@@ -80,7 +78,6 @@ public class GameEngine {
     }
 
     public void updateGameState() {
-        // todo think about changed state, compare this to GameState.class and GraphicsEngine
         gameState.setChanged();
         moveMonsters();
     }
@@ -107,7 +104,6 @@ public class GameEngine {
     public void movePlayer(MoveDirection direction) {
         if (checkIfNewPositionIsInGameWindow(gameState.getPlayer().getPosition(), direction)) {
             Entity entityToCheck = gameState.getEntityByPosition(gameState.getPlayer().getPosition().getNewPosition(direction));
-            // todo remove null check
             if (entityToCheck == null) {
                 gameState.getPlayer().move(direction);
             } else {
@@ -123,7 +119,7 @@ public class GameEngine {
     }
 
     public void reset() {
-        gameState.getGameEntities().clear();
+        gameState.getAllGameEntities().clear();
         initGameWorld(gameState);
     }
 

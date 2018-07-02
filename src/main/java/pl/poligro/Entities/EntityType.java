@@ -8,5 +8,15 @@
 package pl.poligro.Entities;
 
 public enum EntityType {
-    BACKGROUND, PLAYER, MONSTER, NPC, WALL, TREASURE, DOOR, SKELETON, WATER, TREE, LAVA
+    EMPTY,
+    PLAYER,
+    MONSTER,
+    NPC,
+    WALL,
+    TREASURE,
+    DOOR,
+    SKELETON,
+    WATER,
+    TREE,
+    LAVA
 }

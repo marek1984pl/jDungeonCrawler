@@ -3,3 +3,5 @@ troll.png;TROLL
 Vampire2.PNG;VAMPIRE
 wall.png;WALL
 tomb.png;TOMB
+sand_1.png;SAND_1
+grass_0_new.png;GRASS_0_NEW

@@ -7,12 +7,21 @@
 
 package pl.poligro.GraphicsEngine.Assets;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import pl.poligro.GraphicsEngine.Exceptions.AssetNotFoundException;
 
 import javax.imageio.ImageIO;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -37,7 +46,7 @@ public class AssetManager {
 
     public void loadAssetsData() {
         try {
-            // todo change txt file to xml
+//             todo change txt file to xml
             Path path = Paths.get(System.getProperty("user.dir"), DATA_DIR);
 
             BufferedReader br = new BufferedReader(new FileReader(path.resolve(GRAPHICS_ASSET_FILE).toString()));
@@ -56,6 +65,31 @@ public class AssetManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//
+//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//        try {
+//            DocumentBuilder builder = factory.newDocumentBuilder();
+//            Path path = Paths.get(System.getProperty("user.dir"), DATA_DIR);
+//
+//            File file = path.resolve("graphics.xml").toFile();
+//            Document doc = builder.parse(file);
+//
+//            Element root = doc.getDocumentElement();
+//            NodeList children = root.getChildNodes();
+//
+//            List<Element> nodeList = new ArrayList<>();
+//
+//            for (int i = 0; i < children.getLength(); ++i) {
+//                if (children.item(i) instanceof Element) {
+//                    nodeList.add((Element) children.item(i));
+//                }
+//            }
+//
+//            String st = "xxx";
+//
+//        } catch (IOException | ParserConfigurationException | SAXException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static Image getGraphicsAsset(String assetName) {
