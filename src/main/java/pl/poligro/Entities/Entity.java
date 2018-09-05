@@ -7,10 +7,11 @@
 
 package pl.poligro.Entities;
 
+import pl.poligro.Entities.Common.Interfaces.Interactable;
 import pl.poligro.GameEngine.Position;
 import pl.poligro.Utils.IdGenerator;
 
-public abstract class Entity {
+public abstract class Entity implements Interactable {
 
     private final String id = IdGenerator.generateNewId();
     private Position position;
@@ -37,8 +38,6 @@ public abstract class Entity {
     public void setEntityType(EntityType entityType) {
         this.entityType = entityType;
     }
-
-    public abstract void interactWith(Entity entity);
 
     public String getGraphicsName() {
         return graphicsName;

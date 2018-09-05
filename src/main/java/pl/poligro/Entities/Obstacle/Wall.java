@@ -7,6 +7,8 @@
 
 package pl.poligro.Entities.Obstacle;
 
+import pl.poligro.Entities.Common.InteractionResult;
+import pl.poligro.Entities.Common.Interfaces.Interactable;
 import pl.poligro.Entities.Entity;
 import pl.poligro.Entities.EntityType;
 import pl.poligro.GameEngine.Position;
@@ -20,7 +22,7 @@ public class Wall extends Obstacle {
     }
 
     @Override
-    public void interactWith(Entity entity) {
-
+    public InteractionResult interactWith(Interactable entity) {
+        return null;
     }
 }

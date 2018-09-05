@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.poligro.App;
 import pl.poligro.Entities.Actor.Monster;
+import pl.poligro.Entities.Common.InteractionResult;
 import pl.poligro.Entities.Entity;
 import pl.poligro.Entities.Obstacle.Wall;
+import pl.poligro.GraphicsEngine.GameUi.EventLog;
 import pl.poligro.Utils.GlobalConst;
 
 import java.util.Collection;
@@ -24,6 +26,7 @@ public class GameEngine {
     private Logger log = LoggerFactory.getLogger(App.class.getName());
 
     private GameState gameState;
+    private EventLog eventLog = new EventLog();
 
     public void initGameWorld(GameState gameState) {
 
@@ -79,7 +82,7 @@ public class GameEngine {
 
     public void updateGameState() {
         gameState.setChanged();
-        moveMonsters();
+//        moveMonsters();
     }
 
     private void moveMonsters() {
@@ -90,7 +93,11 @@ public class GameEngine {
                 if (entityToCheck == null) {
                     ((Monster) monster).move(newDirection);
                 } else {
-                    monster.interactWith(entityToCheck);
+                    InteractionResult interactionResult = monster.interactWith(entityToCheck);
+
+                    if (interactionResult.getInteractionResultText() != null) {
+                        eventLog.addToEventLog(interactionResult);
+                    }
                 }
             }
         }
@@ -108,9 +115,11 @@ public class GameEngine {
                 gameState.getPlayer().move(direction);
             } else {
                 // todo use strategy pattern for interaction
-                gameState.getPlayer().interactWith(entityToCheck);
+                InteractionResult interactionResult = gameState.getPlayer().interactWith(entityToCheck);
+                eventLog.addToEventLog(interactionResult);
             }
         }
+        moveMonsters();
     }
 
     private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {

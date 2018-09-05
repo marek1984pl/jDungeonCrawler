@@ -8,6 +8,7 @@
 package pl.poligro.Utils;
 
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 
 public interface GlobalConst {
 
@@ -43,4 +44,6 @@ public interface GlobalConst {
 
     Integer UI_WINDOW_WIDTH_PX = UI_WINDOW_WIDTH_TILES * TILE_SIZE_PX;
     Integer UI_WINDOW_HEIGHT_PX = UI_WINDOW_HEIGHT_TILES * TILE_SIZE_PX;
+
+    DateTimeFormatter DEFAULT_DATE_TIME_FORMATER = DateTimeFormatter.ofPattern("HH:mm:ss");
 }

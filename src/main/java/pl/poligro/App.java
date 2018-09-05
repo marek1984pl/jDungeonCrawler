@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.poligro.GameEngine.GameEngine;
 import pl.poligro.GameEngine.GameState;
-import pl.poligro.GraphicsEngine.GameUi;
+import pl.poligro.GraphicsEngine.GameUi.GameUiManager;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
 import pl.poligro.GraphicsEngine.GraphicEngine;
 import pl.poligro.GraphicsEngine.InputHandler;
@@ -28,14 +28,13 @@ public class App {
         AssetManager assetManager = new AssetManager();
         GameEngine gameEngine = new GameEngine();
         GameState gameState = new GameState();
-        GameUi gameUi = new GameUi();
 
         // 2) init gameEngine - load gameEngine assets, init gameEngine world, init physics, init ui
         assetManager.loadAssetsData();
         gameEngine.initGameWorld(gameState);
 
         log.info("Initialize game UI....");
-        gameState.addObserver(gameUi);
+        gameState.addObserver(GameUiManager.getGameUiObject());
         log.info("Game UI initialized!");
 
         // 3) main loop - user input, update, render, sync

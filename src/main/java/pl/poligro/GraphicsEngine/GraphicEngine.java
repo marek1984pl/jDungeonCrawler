@@ -13,6 +13,7 @@ import pl.poligro.App;
 import pl.poligro.Entities.Entity;
 import pl.poligro.GameEngine.*;
 import pl.poligro.GraphicsEngine.Assets.AssetManager;
+import pl.poligro.GraphicsEngine.GameUi.GameUiManager;
 import pl.poligro.Utils.GlobalConst;
 
 import javax.swing.*;
@@ -95,7 +96,9 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawUI() {
-        bbg.drawImage(GameUi.getUiImage(), GlobalConst.UI_WINDOW_START_POS_X, GlobalConst.UI_WINDOW_START_POS_Y, GlobalConst.UI_WINDOW_WIDTH_PX, GlobalConst.UI_WINDOW_HEIGHT_PX, this);
+        if (GameUiManager.isRefreshRequired()) {
+            bbg.drawImage(GameUiManager.getUiImage(), GlobalConst.UI_WINDOW_START_POS_X, GlobalConst.UI_WINDOW_START_POS_Y, GlobalConst.UI_WINDOW_WIDTH_PX, GlobalConst.UI_WINDOW_HEIGHT_PX, this);
+        }
     }
 
     private void drawInBottomLayer() {
