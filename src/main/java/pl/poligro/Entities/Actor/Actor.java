@@ -17,6 +17,7 @@ public abstract class Actor extends Entity implements Movable {
     private ActorType type;
     private String name;
     private Integer level;
+    private Statistics stats = new Statistics();
 
     public Actor() {
         this.name = "default name";
@@ -53,6 +54,23 @@ public abstract class Actor extends Entity implements Movable {
 
     public void setType(ActorType type) {
         this.type = type;
+    }
+
+    public Statistics getStats() {
+        return stats;
+    }
+
+    public void createStats(Integer strength, Integer dexterity, Integer intelligence, Integer stamina, ActorType actorType) {
+        if (actorType.equals(ActorType.PLAYER)) {
+            stats.setStrength(strength);
+            stats.setDexterity(dexterity);
+            stats.setIntelligence(intelligence);
+            stats.setStamina(stamina);
+            stats.setAttackPower(strength * 2);
+            stats.setHitChance(strength.floatValue() + dexterity.floatValue() + 60);
+            stats.setCritChance((strength.floatValue() * dexterity.floatValue()) / 10 + 10);
+            stats.setHealth(stamina * 10);
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@
 
 package pl.poligro.GraphicsEngine.GameUi;
 
+import pl.poligro.Entities.Actor.Statistics;
 import pl.poligro.Entities.Common.InteractionResult;
 import pl.poligro.GameEngine.GameState;
 import pl.poligro.GameEngine.Interface.Observable;
@@ -21,6 +22,7 @@ public class GameUiObject implements Observer {
     private String playerName;
     private String playerPosition;
     private String turnNumber;
+    private Statistics playerStats;
     private List<InteractionResult> log = new ArrayList<>();
 
     private Boolean refreshRequired = false;
@@ -52,9 +54,14 @@ public class GameUiObject implements Observer {
         return refreshRequired;
     }
 
+    public Statistics getPlayerStats() {
+        return playerStats;
+    }
+
     @Override
     public void update(Observable observable) {
         if (observable instanceof GameState) {
+            playerStats = ((GameState) observable).getPlayer().getStats();
             playerName = ((GameState) observable).getPlayer().getName();
             playerPosition = ((GameState) observable).getPlayer().getPosition().toString();
             turnNumber = ((GameState) observable).getTurnNumber().toString();

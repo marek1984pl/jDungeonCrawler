@@ -8,9 +8,10 @@
 package pl.poligro.Entities.Common.Interfaces;
 
 import pl.poligro.Entities.Common.InteractionResult;
-import pl.poligro.Entities.Entity;
-import pl.poligro.GraphicsEngine.GameUi.EventLog;
+import pl.poligro.Entities.EntityType;
 
 public interface Interactable {
     InteractionResult interactWith(Interactable entity);
+
+    EntityType getEntityType();
 }

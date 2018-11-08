@@ -63,7 +63,7 @@ public class GameEngine {
     }
 
     public Boolean checkIfEntityExists(Entity entity) {
-        return gameState.getAllGameEntities().contains(entity);
+        return gameState.getEntityByPosition(entity.getPosition()) != null;
     }
 
     public Boolean addEntity(final Entity entity) {
@@ -81,8 +81,9 @@ public class GameEngine {
     }
 
     public void updateGameState() {
+        gameState.nextTurn();
+        moveMonsters();
         gameState.setChanged();
-//        moveMonsters();
     }
 
     private void moveMonsters() {
@@ -104,7 +105,6 @@ public class GameEngine {
     }
 
     public void nextTurn() {
-        gameState.setTurnNumber(gameState.getTurnNumber() + 1);
         updateGameState();
     }
 
@@ -119,7 +119,6 @@ public class GameEngine {
                 eventLog.addToEventLog(interactionResult);
             }
         }
-        moveMonsters();
     }
 
     private boolean checkIfNewPositionIsInGameWindow(Position currentPosition, MoveDirection direction) {
@@ -129,6 +128,7 @@ public class GameEngine {
 
     public void reset() {
         gameState.getAllGameEntities().clear();
+        eventLog.clearLog();
         initGameWorld(gameState);
     }
 

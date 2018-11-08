@@ -76,6 +76,10 @@ public class GameState implements Observable {
         this.turnNumber = turnNumber;
     }
 
+    public void nextTurn() {
+        this.turnNumber++;
+    }
+
     public List<Entity> getObstacles() {
         return getEntitiesByType(EntityType.WALL);
     }

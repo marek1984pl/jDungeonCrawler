@@ -31,19 +31,20 @@ public abstract class Entity implements Interactable {
         this.position = position;
     }
 
-    public EntityType getEntityType() {
-        return entityType;
-    }
-
-    public void setEntityType(EntityType entityType) {
-        this.entityType = entityType;
-    }
-
     public String getGraphicsName() {
         return graphicsName;
     }
 
     public void setGraphicsName(String graphicsName) {
         this.graphicsName = graphicsName;
+    }
+
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
+
+    @Override
+    public EntityType getEntityType() {
+        return entityType;
     }
 }

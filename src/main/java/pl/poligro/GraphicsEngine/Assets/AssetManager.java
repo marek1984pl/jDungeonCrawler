@@ -7,21 +7,12 @@
 
 package pl.poligro.GraphicsEngine.Assets;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import pl.poligro.GraphicsEngine.Exceptions.AssetNotFoundException;
 
 import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -99,6 +90,7 @@ public class AssetManager {
             image = graphicsAssets.get(assetName);
         } catch (AssetNotFoundException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
         return image;
     }

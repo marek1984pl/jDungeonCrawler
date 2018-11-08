@@ -29,4 +29,9 @@ public class EventLog implements Observable {
     public Deque<InteractionResult> getEventLog() {
         return eventLog;
     }
+
+    public void clearLog() {
+        eventLog.clear();
+        setChanged();
+    }
 }

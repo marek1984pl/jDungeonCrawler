@@ -20,6 +20,7 @@ public interface Observable {
             throw new NullPointerException();
         }
         if (!observers.contains(observer)) {
+            observer.update(this);
             observers.add(observer);
         }
     }

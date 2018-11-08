@@ -9,11 +9,8 @@ package pl.poligro.Entities.Actor;
 
 import pl.poligro.Entities.Common.InteractionResult;
 import pl.poligro.Entities.Common.Interfaces.Interactable;
-import pl.poligro.Entities.Entity;
 import pl.poligro.Entities.EntityType;
-import pl.poligro.Entities.Obstacle.Obstacle;
 import pl.poligro.GameEngine.Position;
-import pl.poligro.GraphicsEngine.GameUi.EventLog;
 
 public class Player extends Actor {
 
@@ -23,17 +20,23 @@ public class Player extends Actor {
         setEntityType(EntityType.PLAYER);
         setPosition(new Position(5, 5));
         setGraphicsName("TROLL");
+        createStats(6, 4, 4, 7, ActorType.PLAYER);
     }
 
     @Override
     public InteractionResult interactWith(Interactable entity) {
         InteractionResult result = new InteractionResult();
 
-        if (entity instanceof Monster) {
-            result.setInteractionResultText("Interaction with monster!");
-        }
-        if (entity instanceof Obstacle) {
-            result.setInteractionResultText("Interaction with wall!");
+        switch (entity.getEntityType()) {
+            case MONSTER:
+                result.setInteractionResultText("Interaction with monster!");
+                break;
+            case WALL:
+                result.setInteractionResultText("Interaction with wall!");
+                break;
+            default:
+                result.setInteractionResultText("Unknown interaction...");
+                break;
         }
 
         return result;
