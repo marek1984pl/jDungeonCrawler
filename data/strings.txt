@@ -1,0 +1,2 @@
+PLAYER_POSITION;Player position : ;#FF0000;10;205
+TURN_NUMBER;Turn number : ;#00FF00;10;250

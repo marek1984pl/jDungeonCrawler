@@ -9,12 +9,12 @@ package pl.poligro;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.poligro.GameEngine.GameEngine;
-import pl.poligro.GameEngine.GameState;
-import pl.poligro.GraphicsEngine.GameUi.GameUiManager;
-import pl.poligro.GraphicsEngine.Assets.AssetManager;
-import pl.poligro.GraphicsEngine.GraphicEngine;
-import pl.poligro.GraphicsEngine.InputHandler;
+import pl.poligro.game_engine.GameEngine;
+import pl.poligro.game_engine.GameState;
+import pl.poligro.graphics_engine.game_ui.GameUiManager;
+import pl.poligro.graphics_engine.assets.AssetManager;
+import pl.poligro.graphics_engine.GraphicEngine;
+import pl.poligro.graphics_engine.InputHandler;
 
 public class App {
 
@@ -31,6 +31,7 @@ public class App {
 
         // 2) init gameEngine - load gameEngine assets, init gameEngine world, init physics, init ui
         assetManager.loadAssetsData();
+        assetManager.loadStringResources();
         gameEngine.initGameWorld(gameState);
 
         log.info("Initialize game UI....");
