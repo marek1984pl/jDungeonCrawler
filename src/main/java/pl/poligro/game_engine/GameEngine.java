@@ -35,13 +35,7 @@ public class GameEngine {
 
         gameState.setTurnNumber(0);
 
-        addEntities(Stream
-                .generate(() -> new Monster(Position.getNewRandomPosition()))
-                .limit(20)
-                .collect(Collectors.toList()));
-
-        addEntity(gameState.getPlayer());
-        addEntities(gameState.getMonsterList());
+//        addEntities(gameState.getMonsterList());
 
         addEntity(new Wall(new Position(0, 0)));
         addEntity(new Wall(new Position(0, 1)));
@@ -54,8 +48,15 @@ public class GameEngine {
 
         addEntities(Stream.
                 generate(() -> new Wall(Position.getNewRandomPosition()))
+                .limit(150)
+                .collect(Collectors.toList()));
+
+        addEntities(Stream
+                .generate(() -> new Monster(Position.getNewRandomPosition()))
                 .limit(50)
                 .collect(Collectors.toList()));
+
+        addEntity(gameState.getPlayer());
 
         gameState.setChanged();
         log.info("Game world initialized!");

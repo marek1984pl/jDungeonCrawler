@@ -23,20 +23,28 @@ public class Asset<T> {
     //todo add asset path, maybe loadAsset method? loadAsst method abstract... eg. load string is different than load graphic asset (string has colors, position etc)
     //todo load on demand - getAsset (if loaded return, if not load and return)
 
-    private Map<String, T> assets = new HashMap<>();
+    private String name;
+    private AssetType type;
+    private String path;
+    private T assetData;
 
-    public T getAsset(String nameOfObject) throws AssetNotFoundException {
-        if (assets.get(nameOfObject) == null) {
-            throw new AssetNotFoundException(nameOfObject);
-        }
-        return assets.get(nameOfObject);
+    public Asset() {
     }
 
-    public Collection<T> getAll() {
-        return assets.values();
+    public Asset(String name, AssetType type, String path, T assetData) {
+        this.name = name;
+        this.type = type;
+        this.path = path;
+        this.assetData = assetData;
     }
 
-    public void createNewAsset(String nameOfObject, T asset) {
-        assets.put(nameOfObject, asset);
+    public String getName() {
+        return name;
+}
+
+    public T getAssetData() {
+        return assetData;
     }
+
+    //    private Map<String, T> assets = new HashMap<>();
 }

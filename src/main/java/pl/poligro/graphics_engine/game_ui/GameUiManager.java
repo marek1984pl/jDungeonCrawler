@@ -63,10 +63,10 @@ public class GameUiManager {
 //            GameUiString gameUiString = AssetManager.getStringResource(StrResConst.PLAYER_POSITION);
 //            drawStringUsing2Colors(gameUiString.getString(), gameUiString.getColor(), gameUiObject.getPlayerPosition(), Color.YELLOW, gameUiString.getPosX(), gameUiString.getPosY());
 
-            for (GameUiString gameUiString : AssetManager.getStringResources().getAll()) {
-                drawString(gameUiString.getString(), gameUiString.getColor(), gameUiString.getPosX(), gameUiString.getPosY());
-            }
-
+//            for (GameUiString gameUiString : AssetManager.getStringResources().getAll()) {
+//                drawString(gameUiString.getString(), gameUiString.getColor(), gameUiString.getPosX(), gameUiString.getPosY());
+//            }
+//
             drawString("HP : " + gameUiObject.getPlayerStats().getHealth().toString(), Color.YELLOW, 10, 80);
             g.drawString("STR : " + gameUiObject.getPlayerStats().getStrength().toString(), 10, 95);
             g.drawString("DEX : " + gameUiObject.getPlayerStats().getDexterity().toString(), 10, 110);

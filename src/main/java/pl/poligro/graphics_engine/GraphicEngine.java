@@ -108,7 +108,7 @@ public class GraphicEngine extends JFrame {
     private void drawBackground() {
         for (int i = 0; i < GlobalConst.GAME_WINDOW_WIDTH_TILES; ++i) {
             for (int j = 0; j < GlobalConst.GAME_WINDOW_HEIGHT_TILES; ++j) {
-                drawImage(AssetManager.getGraphicsAsset("SAND_1"), new Position(i, j), GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX);
+                drawImage((Image) AssetManager.getAsset("SAND_1").getAssetData(), new Position(i, j), GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX);
             }
         }
     }
@@ -148,7 +148,7 @@ public class GraphicEngine extends JFrame {
     }
 
     private void drawEntity(Entity entity) {
-        bbg.drawImage(AssetManager.getGraphicsAsset(entity.getGraphicsName()), entity.getPosition().getX() * GlobalConst.TILE_SIZE_PX, entity.getPosition().getY() * GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, this);
+        bbg.drawImage((Image) AssetManager.getAsset(entity.getGraphicsName()).getAssetData(), entity.getPosition().getX() * GlobalConst.TILE_SIZE_PX, entity.getPosition().getY() * GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, GlobalConst.TILE_SIZE_PX, this);
     }
 
     private void drawImage(Image img, Integer posX, Integer posY, Integer sizeX, Integer sizeY) {

@@ -30,7 +30,7 @@ public class App {
         GameState gameState = new GameState();
 
         // 2) init gameEngine - load gameEngine assets, init gameEngine world, init physics, init ui
-        assetManager.loadAssetsData();
+        assetManager.loadImageAssets();
         assetManager.loadStringResources();
         gameEngine.initGameWorld(gameState);
 
